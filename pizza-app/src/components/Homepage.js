@@ -13,13 +13,11 @@ const Homepage = () => {
 
     const map = useSelector((state) => state.cart);
 
-    const [cookies] = useCookies(['name', 'ph', 'address']);
+    const [cookies, setCookie, removeCookie] = useCookies(['name', 'ph', 'address']);
     
     const url = "https://react-fast-pizza-api.onrender.com/api/menu";
 
     const navigate = useNavigate();
-
-    const [, , removeAllCookies] = useCookies();
 
     useEffect(() => {
         if(obj.userData.length > 0) {
@@ -44,6 +42,13 @@ const Homepage = () => {
         })
     },[])
 
+    useEffect(() => {
+        if(cookies.name === undefined || cookies.ph === undefined || cookies.address === undefined) {
+            navigate('/');
+        }
+    },[cookies.name, cookies.ph, cookies.address])
+
+    console.log(cookies.name+" "+cookies.ph+" "+cookies.address);
 
     const handleClick = () => {
         navigate('/order');
@@ -56,8 +61,10 @@ const Homepage = () => {
     }
 
     const signoff = () => {
-        removeAllCookies();
-        window.location.href = '/';
+        removeCookie('name');
+        removeCookie('ph');
+        removeCookie('address');
+        navigate('/');
     }
 
     return (

@@ -18,12 +18,14 @@ const User = () => {
             setCookie('name', name, {path: '/'})
             setCookie('ph', ph, {path: '/'})
             setCookie('address', address, {path: '/'})
-        
             navigate('/home');
         } else {
             alert("Kindly fill up the credentials");
         }
     }
+
+
+    console.log(cookies.name+" "+cookies.ph+" "+cookies.address);
     
     return (
         <div>
